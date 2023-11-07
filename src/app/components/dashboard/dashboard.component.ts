@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 function alphanumValidator(control: AbstractControl) {
   const value = control.value;
-  const isAlphanumeric = /^[a-zA-Z0-9]+$/.test(value);
+  const isAlphanumeric =  /^[a-zA-Z0-9\s]*$/.test(value);
   if (!isAlphanumeric) {
     return { alphanum: true };
   }

@@ -21,14 +21,12 @@ export class TaskComponent implements OnInit{
     let dataCheckbox = {id: id, isChecked:isChecked}
     this.displayBtn = isChecked;
     this.taskCheckedEvent.emit(dataCheckbox);
-    console.log('check en tarea: ' + id + ' estado del check: ' + isChecked);
 
   }
 
   deleteTask($event: any) {
     const id = $event.target.value;
     this.taskDeleteEvent.emit(id);
-    console.log('eliminar tarea: ' + id);
   }
 
   ngOnInit(): void {
