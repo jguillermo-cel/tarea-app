@@ -1,0 +1,64 @@
+<div class="dashboard container-fluid h-100">
+    <div class="row h-100">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/dashboard">
+                            <span data-feather="home"></span>
+                            Tareas
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pb-5">
+            <div class="">
+                <p *ngIf="!userLoginOn">Usuario no autenticado</p>
+                <p *ngIf="userLoginOn">Usuario autenticado</p>
+                <div *ngIf="userLoginOn">
+                    <span>Nombre: {{userData?.name}} {{userData?.lastName}}</span> || 
+                    <span>Email: {{userData?.email}}</span> ||
+                    <span>Usuario: {{userData?.user}}</span> 
+                </div>
+            </div>
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Tareas</h1>
+            </div>
+            <form [formGroup]="taskForm">
+                <div class="row g-3 align-items-center mb-4">
+                    <div class="col-auto">
+                        <label for="taskInput" class="col-form-label">Tarea:</label>
+                    </div>
+                    <div class="col-6">
+                        <input (keyup.enter)="addTask(txtTask.value)" formControlName="txtTask" type="text" id="taskInput" class="form-control" #txtTask>
+                        
+                    </div>
+                    <div class="col-auto">
+                        <button (click)="addTask(txtTask.value)" type="button" class="btn btn-primary">Agregar</button>
+                    </div>
+                </div>
+                <div *ngIf="task.invalid && (task.dirty || task.touched)"
+                                            class="text-danger">
+
+                                            <div *ngIf="task.errors?.['required']">
+                                                El nombre de la tarea es requerido.
+                                            </div>
+                                            <div *ngIf="task.errors?.['alphanum']">
+                                                El nombre de la tarea debe ser alfanumérico.
+                                            </div>
+                                        </div>
+            </form>
+            <h2>Lista de tareas</h2>
+            <div class="row">
+                <div class="col-12">
+                    <div *ngFor="let task of tasks" class="form-check mb-3">
+                        <app-task [taskInput]="task" (taskDeleteEvent)="deleteTask($event)" (taskCheckedEvent)="changeCheck($event)" ></app-task>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

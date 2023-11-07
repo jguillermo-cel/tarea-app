@@ -1,0 +1,5 @@
+<input class="form-check-input" type="checkbox" [checked]="taskInput.select" value="{{taskInput.id}}" id="task-{{taskInput.id}}" (change)="onChangeTask($event)">
+<label class="form-check-label" for="task-{{taskInput.id}}">
+    {{taskInput.task}}
+</label>
+<button type="button" (click)="deleteTask($event)" value="{{taskInput.id}}" class="btn btn-outline-danger btn-sm mx-2 " [class.d-none]="taskInput.select">x</button>
